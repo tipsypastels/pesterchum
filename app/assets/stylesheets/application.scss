@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+
+$gold: #ffb600;
+$darkgold: darken($gold, 10%);
+$yellow: #FDF800;
+$red: #ff0000;
+
+body {
+  background-color: $gold;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  font-family: 'Press Start 2P';
+}
+
+.box,
+input[type="text"],
+textarea {
+  background-color: black;
+  color: white;
+  font-family: 'Press Start 2P';
+  font-size: 1rem;
+  border: 2px solid $gold;
+  padding: 0.5rem;
+
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+button,
+input[type="submit"],
+.box-inverse {
+  background-color: $yellow;
+  border: 2px solid $darkgold;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.error {
+  color: $red;
+}
+
+.white {
+  color: white;
+}
+
+section {
+  margin-bottom: 1rem;
+}
+
+.ChatClient {
+  display: flex;
+
+  padding: 0.25rem;
+  box-sizing: border-box;
+
+  width: 100vw;
+  height: 100vh;
+  
+  .Dashboard {
+    width: 25%;
+
+    padding: 0.5rem;
+    box-sizing: border-box;
+  }
+
+  .ChannelContainer {
+    flex-grow: 1;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    
+    .Channel {
+      flex-grow: 1;
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+
+      border: 2px solid $yellow;
+      background-color: white;
+
+      padding: 1rem;
+
+      .Channel__messages {
+        height: 100%;
+
+        flex-grow: 1;
+        overflow-y: scroll;
+      }
+
+      .Channel__reply {
+        display: flex;
+        margin-top: 0.5rem;
+
+        input[type='text'] {
+          flex-grow: 1;
+        }
+      }
+    }
+  }
+}
+
+.mood-rancorous {
+  background-color: $red;
+}

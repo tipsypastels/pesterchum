@@ -1,18 +1,17 @@
 # == Schema Information
 #
-# Table name: messages
+# Table name: participants
 #
 #  id              :integer          not null, primary key
-#  content         :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  conversation_id :integer
-#  sender_id       :integer
+#  user_id         :integer
 #
 
 require 'test_helper'
 
-class MessageTest < ActiveSupport::TestCase
+class ParticipantTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

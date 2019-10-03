@@ -6,6 +6,12 @@ Rails.application.routes.draw do
       sign_out: 'logout',
       sign_up: 'register',
     }
-    
+
+  post '/messages', to: 'messages#create'
+
+  get '/conversations/:id', to: 'conversations#show'
+
+  patch '/users/change', to: 'users#change'
+
   root to: 'users#index'
 end

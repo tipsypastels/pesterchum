@@ -1,0 +1,4 @@
+<%= react_component('ChatClient', {
+  user: Current.user.as_api_response(:public),
+  authToken: form_authenticity_token,
+})  %>

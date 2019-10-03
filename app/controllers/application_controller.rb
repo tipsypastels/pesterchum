@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
     Current.user = current_user
   end
 
+  before_action :authenticate_user!,
+    unless: :devise_controller?
+
   before_action :allow_chumhandle_in_registration,
     if: :devise_controller?
 

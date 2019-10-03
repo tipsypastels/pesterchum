@@ -4,10 +4,10 @@
 #
 #  id                     :integer          not null, primary key
 #  chumhandle             :string
-#  color                  :string
+#  color                  :string           default("#000000")
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  mood                   :integer
+#  mood                   :integer          default("chummy")
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string

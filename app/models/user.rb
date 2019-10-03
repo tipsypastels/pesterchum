@@ -4,10 +4,10 @@
 #
 #  id                     :integer          not null, primary key
 #  chumhandle             :string
-#  color                  :string
+#  color                  :string           default("#000000")
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  mood                   :integer
+#  mood                   :integer          default("chummy")
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -30,16 +30,32 @@ class User < ApplicationRecord
     presence: true,
     format: {
       with: /\A[a-z]+[A-Z][a-z]+\z/,
-      message: 'Chumhandles must be formatted as in Homestuck - two words written in camelCase, eg.: ectoBiologist, arachnidsGrip'
+      message: 'must be formatted as in Homestuck - two words written in camelCase, eg.: ectoBiologist, arachnidsGrip'
+    }
+
+  validates :color,
+    presence: true,
+    format: {
+      with: /\A#[0-9a-f]{6}\z/,
+      message: 'must be a hex color code'
     }
   
-  def short_chumhandle
-    (chumhandle[0] + chumhandle[/[A-Z]/]).upcase
+  acts_as_api
+  
+  api_accessible :public do |api|
+    api.add :id
+    api.add :color
+    api.add :chumhandle
+    api.add :short_chumhandle
+    api.add :mood
   end
-
+  
   has_many :messages,
     foreign_key: :sender_id,
     inverse_of: :sender
+  
+  has_many :participations,
+    class_name: 'Participant'
 
   enum mood: {
     chummy:    0,
@@ -49,4 +65,25 @@ class User < ApplicationRecord
     peppy:     4,
     rancorous: 5,
   }
+
+  after_create :add_to_memo
+  before_validation :add_hash_to_color
+
+  def short_chumhandle
+    (chumhandle[0] + chumhandle[/[A-Z]/]).upcase
+  end
+
+  private
+
+  def add_to_memo
+    Participant.create! \
+      user_id: id, 
+      conversation_id: Conversation.memo_channel.id
+  end
+
+  def add_hash_to_color
+    unless color.start_with?('#')
+      self.color = "##{color}"
+    end
+  end
 end
