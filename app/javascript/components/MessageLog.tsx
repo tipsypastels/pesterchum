@@ -6,5 +6,5 @@ export default function MessageLog(props: Message) {
     <div className="MessageLog">
       <strong style={{ color: props.sender.color }}>{props.sender.short_chumhandle}:</strong> {props.content}
     </div>
-  )
+  );
 }

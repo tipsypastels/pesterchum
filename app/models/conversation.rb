@@ -15,7 +15,14 @@ class Conversation < ApplicationRecord
 
   acts_as_api
 
+  api_accessible :minimal do |api|
+    api.add :id
+    api.add :name
+  end
+
   api_accessible :public do |api|
+    api.add :id
+    api.add :name
     api.add :messages
     api.add :users
   end
@@ -31,6 +38,14 @@ class Conversation < ApplicationRecord
 
   validate :dm_is_between_two_people
   validate :only_one_memo_channel
+
+  def name
+    if memo?
+      'Memo'
+    else
+      (users - [Current.user])[0].chumhandle
+    end
+  end
 
   private
 

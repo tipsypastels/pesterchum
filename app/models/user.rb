@@ -48,6 +48,7 @@ class User < ApplicationRecord
     api.add :chumhandle
     api.add :short_chumhandle
     api.add :mood
+    api.add :conversations, template: :minimal
   end
   
   has_many :messages,
@@ -56,6 +57,9 @@ class User < ApplicationRecord
   
   has_many :participations,
     class_name: 'Participant'
+
+  has_many :conversations,
+    through: :participations
 
   enum mood: {
     chummy:    0,

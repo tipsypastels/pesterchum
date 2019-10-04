@@ -47,6 +47,9 @@ export default function Channel(props: IProps) {
         conversation_id: props.conversationId,
       },
       {
+        disconnected() {
+          console.log('disconnecting');
+        },
         received(data: CableData) {
           switch(data.type) {
             case 'message': {
@@ -60,7 +63,12 @@ export default function Channel(props: IProps) {
       },
     );
 
-    return subscription.unsubscribe;
+    if (subscription) {
+      return () => {
+        console.log('unsubscribing');
+        subscription.unsubscribe();
+      };
+    }
   }, [props.conversationId, !!conversation])
 
   const messagesNode = useRef<HTMLDivElement>();

@@ -1,4 +1,5 @@
 import Mood from "./mood";
+import Conversation from "./conversation";
 
 export default interface User {
   id: number;
@@ -6,4 +7,5 @@ export default interface User {
   chumhandle: string;
   short_chumhandle: string;
   mood: Mood;
+  conversations: Conversation[];
 }
